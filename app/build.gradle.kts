@@ -49,9 +49,17 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("org.osmdroid:osmdroid-android:6.1.7")
+    implementation ("org.osmdroid:osmdroid-mapsforge:6.1.7")
+    implementation ("org.osmdroid:osmdroid-geopackage:6.1.7")
+    implementation ("org.osmdroid:osmdroid-mapsforge:6.1.7")
+    implementation ("com.google.code.gson:gson:2.8.9")
+
+
 
 
 }
