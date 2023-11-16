@@ -1,11 +1,11 @@
 package com.icm.taller3
 
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +33,7 @@ class RegisterUser : AppCompatActivity() {
         val enviarButton: Button = findViewById(R.id.button)
         val galeriaButton: Button = findViewById(R.id.galeria)
         val fotoImageView: ImageView = findViewById(R.id.fotoUsuario)
+        val mapUser = findViewById<Button>(R.id.mapa)
 
         enviarButton.setOnClickListener {
             // Obtener valores de los campos
@@ -71,6 +72,10 @@ class RegisterUser : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
+        mapUser.setOnClickListener{
+            val mapita = Intent(this, MapaUsuario::class.java)
+            startActivity(mapita);
         }
     }
 

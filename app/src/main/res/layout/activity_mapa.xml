@@ -1,50 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Mapa">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MapaUsuario">
 
     <org.osmdroid.views.MapView
         android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="399dp"
+        android:layout_height="637dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <RelativeLayout
-        android:id="@+id/menuLayout"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMenu"
+        android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="#FFFFFF"
-        android:layout_below="@+id/mapView">
+        android:layout_marginTop="24dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Añade tus opciones de menú aquí -->
-        <TextView
-            android:id="@+id/menuOptionSignOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Cerrar Sesión"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"/>
 
-        <TextView
-            android:id="@+id/menuOptionSetAvailable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Establecer Disponible"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/menuOptionSetDisconnected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Establecer Desconectado"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"/>
-    </RelativeLayout>
 
-</RelativeLayout>
