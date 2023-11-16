@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="clarito">#CFE8EF</color>
+    <color name="azul_morado">#C6DBF0</color>
+    <color name="background">#AED1E6</color>
+    <color name="powder_blue">#A0C4E2</color>
+    <color name="sky_blue">#85C7DE</color>
+    <color name="Sky_blue">#85C7DE</color>
+    <color name="Gris">#555555</color>
+    <color name="Azul_link">#3F6FFF</color>
+    <color name="naranjaComple">#F7973B</color>
+    <color name="Columbia_blue">#CFE8EF</color>
+    <color name="Columbia_blue2">#C6DBF0</color>
+    <color name="Columbia_blue3">#AED1E6</color>
 </resources>

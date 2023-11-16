@@ -5,10 +5,14 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.osmdroid.api.IMapController
@@ -21,6 +25,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
+import kotlin.math.log
 
 
 class MapaUsuario : AppCompatActivity() {
@@ -29,12 +34,16 @@ class MapaUsuario : AppCompatActivity() {
     private lateinit var mapController: IMapController
     private lateinit var myLocationOverlay: MyLocationNewOverlay
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
+    private lateinit var auth : FirebaseAuth
+
 
     data class Ubicacion(val latitude: Double, val longitude: Double, val name: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mapa)
+
+        auth = Firebase.auth
 
         val toolbar: Toolbar = findViewById(R.id.toolbarMenu)
         setSupportActionBar(toolbar)
@@ -91,7 +100,8 @@ class MapaUsuario : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item1 -> {
-                val intent = Intent(this, RegisterUser::class.java)
+                auth.signOut()
+                val intent = Intent(this, inicioSesion::class.java)
                 startActivity(intent)
             }
             R.id.item2 -> {
