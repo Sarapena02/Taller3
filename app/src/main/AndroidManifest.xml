@@ -22,9 +22,6 @@
             android:name=".UsuarioActivos"
             android:exported="false" />
         <activity
-            android:name=".Menu"
-            android:exported="false" />
-        <activity
             android:name=".MapaUsuario"
             android:exported="false" />
         <activity
