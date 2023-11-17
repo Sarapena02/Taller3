@@ -19,7 +19,7 @@
         android:background="@drawable/rounded_rectangle_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.378"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,22 +40,48 @@
         app:layout_constraintTop_toTopOf="@+id/rectangle"
         app:layout_constraintVertical_bias="0.975" />
 
+    <Button
+        android:id="@+id/galeria"
+        android:layout_width="172dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="70dp"
+        android:backgroundTint="@color/Sky_blue"
+        android:text="Seleccionar imagen"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="@+id/rectangle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312" />
+
+    <Button
+        android:id="@+id/camara"
+        android:layout_width="172dp"
+        android:layout_height="54dp"
+        android:backgroundTint="@color/Sky_blue"
+        android:text="Camara"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle"
+        app:layout_constraintEnd_toStartOf="@+id/galeria"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312" />
 
     <ImageView
         android:id="@+id/fotoUsuario"
-        android:layout_width="148dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="70dp"
-        android:backgroundTint="@color/Sky_blue"
-        android:text="Foto"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/rectangle"
-        app:layout_constraintTop_toTopOf="@+id/rectangle" />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="96dp"
+        android:rotation="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textView3"
