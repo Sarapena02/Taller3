@@ -330,7 +330,7 @@ class RegisterUser : AppCompatActivity() {
                         "Registro exitoso",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val mapa = Intent(this,MapaUsuario::class.java)
+                    val mapa = Intent(this,UsuarioActivos::class.java)
                     startActivity(mapa)
 
                     // Aquí puedes redirigir a la actividad principal u otra actividad

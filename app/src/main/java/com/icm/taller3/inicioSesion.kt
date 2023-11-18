@@ -17,11 +17,14 @@ class inicioSesion : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityInicioSesionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = Firebase.auth
+
+        auth.signOut()
 
         val iniciarSesion = binding.button
         val registrar = binding.button2
@@ -45,7 +48,7 @@ class inicioSesion : AppCompatActivity() {
             val userName = currentUser.displayName
             if (userName != null) {
                 // User is a regular user, navigate to User Dashboard
-                val intent = Intent(this, MapaUsuario::class.java)
+                val intent = Intent(this, UsuarioActivos::class.java)
                 intent.putExtra("user", currentUser.email)
                 intent.putExtra("username", currentUser.displayName)
                 startActivity(intent)

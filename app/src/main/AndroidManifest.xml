@@ -21,7 +21,6 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -34,24 +33,28 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".UbicacionUsuario"
+            android:exported="false"
+            android:label="@string/title_activity_ubicacion_usuario"
+            android:theme="@style/Theme.Taller3" />
+        <activity
             android:name=".inicioSesion"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".UsuarioActivos"
             android:exported="false" />
-
         <activity
             android:name=".MapaUsuario"
             android:exported="false" />
         <activity
             android:name=".RegisterUser"
-            android:exported="false"/>
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
