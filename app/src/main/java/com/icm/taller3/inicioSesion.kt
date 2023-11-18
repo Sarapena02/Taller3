@@ -48,7 +48,7 @@ class inicioSesion : AppCompatActivity() {
             val userName = currentUser.displayName
             if (userName != null) {
                 // User is a regular user, navigate to User Dashboard
-                val intent = Intent(this, UsuarioActivos::class.java)
+                val intent = Intent(this, MapaUsuario::class.java)
                 intent.putExtra("user", currentUser.email)
                 intent.putExtra("username", currentUser.displayName)
                 startActivity(intent)
