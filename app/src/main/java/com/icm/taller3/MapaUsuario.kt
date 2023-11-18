@@ -2,15 +2,19 @@ package com.icm.taller3
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -24,8 +28,9 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import java.io.IOException
 import java.io.InputStream
+import java.nio.charset.Charset
 
-
+data class Location(val latitude: Double, val longitude: Double, val name: String)
 class MapaUsuario : AppCompatActivity() {
 
     private lateinit var mapView: MapView
@@ -52,58 +57,82 @@ class MapaUsuario : AppCompatActivity() {
         // Inicialización del mapa
         mapView = findViewById(R.id.mapView)
         mapView.tileProvider.tileSource = TileSourceFactory.MAPNIK
-        mapView.setBuiltInZoomControls(true)
         mapView.setMultiTouchControls(true)
+
+        mLocationOverlay = addMyLocationOverlay()
 
         // Añadir marcador de ubicación actual del usuario
         addMyLocationOverlay()
 
+        val locationsArray = readJsonFromAssets(this, "locations.json")
+
+        Log.d("lo","$locationsArray")
+        if (locationsArray != null) {
+            // Puedes acceder a los elementos del arreglo así:
+            for (location in locationsArray) {
+                Log.d("punto","Nombre: ${location.name}, Latitud: ${location.latitude}, Longitud: ${location.longitude}")
+            }
+        }
+
         // Añadir marcadores de puntos de interés
-        addPointsOfInterestMarkers()
+        addPointsOfInterestMarkers(locationsArray)
 
         // Centrar la vista en la ubicación del usuario
         centerMapToUserLocation()
     }
 
-    private fun addMyLocationOverlay() {
-        val locationProvider = GpsMyLocationProvider(this)
-        mLocationOverlay = MyLocationNewOverlay(locationProvider, mapView)
-        mLocationOverlay.enableMyLocation()
-
-        // Agregar el overlay después de habilitar la ubicación
-        mapView.overlays.add(mLocationOverlay)
-    }
-
-    private fun addPointsOfInterestMarkers() {
+    private fun readJsonFromAssets(context: Context, fileName: String): Array<Location>? {
+        var json: String? = null
         try {
-            // Leer el archivo JSON
-            val inputStream: InputStream = assets.open("locations.json")
+            val inputStream: InputStream = context.assets.open(fileName)
             val size: Int = inputStream.available()
             val buffer = ByteArray(size)
             inputStream.read(buffer)
             inputStream.close()
-            val json = String(buffer, charset("UTF-8"))
+            json = String(buffer, Charset.defaultCharset())
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return null
+        }
 
-            // Parsear el JSON
-            val jsonObject = JSONObject(json)
-            val locationsArray: JSONArray = jsonObject.getJSONObject("locations").getJSONArray("locationsArray")
+        val gson = Gson()
+        val locations = gson.fromJson(json, Map::class.java)["locations"] as Map<String, Map<String, Any>>
 
-            // Crear una lista de marcadores para los puntos de interés
-            for (i in 0 until locationsArray.length()) {
-                val locationObject = locationsArray.getJSONObject(i)
-                val latitude = locationObject.getDouble("latitude")
-                val longitude = locationObject.getDouble("longitude")
-                val name = locationObject.getString("name")
+        return locations.map { (_, value) ->
+            gson.fromJson(gson.toJsonTree(value), Location::class.java)
+        }.toTypedArray()
+    }
 
-                // Crear un marcador en la ubicación del punto de interés
-                val point = GeoPoint(latitude, longitude)
-                val marker = Marker(mapView)
-                marker.position = point
-                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                marker.title = name
+    private fun addMyLocationOverlay(): MyLocationNewOverlay {
+        val locationProvider = GpsMyLocationProvider(this)
+        val overlay = MyLocationNewOverlay(locationProvider, mapView)
+        overlay.enableMyLocation()
+        overlay.enableFollowLocation() // Habilita el seguimiento de la ubicación
+        mapView.overlays.add(overlay)
+        mapView.controller.setZoom(13.0)
+        return overlay
+    }
 
-                // Añadir el marcador al mapa
-                mapView.overlays.add(marker)
+    private fun addPointsOfInterestMarkers(locations: Array<Location>?) {
+        
+        try {
+
+            if (locations != null) {
+                for (location in locations) {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+                    val name = location.name
+
+                    // Crear un marcador en la ubicación del punto de interés
+                    val point = GeoPoint(latitude, longitude)
+                    val marker = Marker(mapView)
+                    marker.position = point
+                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    marker.title = name
+
+                    // Añadir el marcador al mapa
+                    mapView.overlays.add(marker)
+                }
             }
 
             // Forzar la actualización del mapa
