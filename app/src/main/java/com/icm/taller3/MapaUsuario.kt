@@ -137,15 +137,15 @@ class MapaUsuario : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item1 -> {
-                val intent = Intent(this, RegisterUser::class.java)
+                val intent = Intent(this, inicioSesion::class.java)
                 startActivity(intent)
             }
             R.id.item2 -> {
                 showStatusDialog()
             }
             else -> {
-                //val intent1 = Intent(this, UsuarioActivos::class.java)
-                //startActivity(intent1)
+                val intent1 = Intent(this, UsuarioActivos::class.java)
+                startActivity(intent1)
             }
         }
         return super.onOptionsItemSelected(item)
