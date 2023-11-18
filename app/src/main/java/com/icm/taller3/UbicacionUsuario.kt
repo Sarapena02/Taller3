@@ -1,21 +1,20 @@
 package com.icm.taller3
 
 
-import android.content.pm.PackageManager
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.type.LatLng
-import org.mapsforge.map.android.layers.MyLocationOverlay
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -37,7 +36,8 @@ class UbicacionUsuario : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ubicacion_usuario)
 
-
+        //Notificación
+        startService(Intent(this, ServiceUser::class.java))
 
         myRef = database.getReference("users")
 
@@ -148,5 +148,52 @@ class UbicacionUsuario : AppCompatActivity() {
         mapView.overlays.add(overlay)
         return overlay
     }
+
+
+
+    //Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_usuario, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item1 -> {
+                val intent = Intent(this, inicioSesion::class.java)
+                startActivity(intent)
+            }
+            R.id.item2 -> {
+                showStatusDialog()
+            }
+            else -> {
+                val intent1 = Intent(this, UsuarioActivos::class.java)
+                startActivity(intent1)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun showStatusDialog() {
+        val statusOptions = arrayOf("Disponible", "Desconectado")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Selecciona tu estado")
+            .setItems(statusOptions, DialogInterface.OnClickListener { _, which ->
+                // 'which' indica la posición del elemento seleccionado en el array
+                when (which) {
+                    0 -> {
+                        // Opción: Disponible
+                        // Aquí puedes poner la lógica para cuando el usuario está disponible
+                    }
+                    1 -> {
+                        // Opción: Desconectado
+                        // Aquí puedes poner la lógica para cuando el usuario está desconectado
+                    }
+                }
+            })
+
+        builder.create().show()
+    }
+
 
 }

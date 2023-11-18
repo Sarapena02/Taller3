@@ -8,6 +8,7 @@ data class Users(
     val latitud: String,
     val foto: String,
     val estado: String
+
 ) {
 
     // Constructor sin argumentos necesario para Firebase

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MediFast</string>
+    <string name="app_name">Taller3</string>
     <string name="saludo">Bienvenido!</string>
     <string name="nombre_doc">Dr</string>
     <string name="nombre">Nombre</string>

@@ -3,7 +3,6 @@ package com.icm.taller3
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +23,9 @@ class UsuarioActivos : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario_activos)
+
+        //Notificación
+        startService(Intent(this, ServiceUser::class.java))
 
 
         val usersList = mutableListOf<Users>()

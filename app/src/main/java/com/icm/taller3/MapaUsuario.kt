@@ -1,6 +1,11 @@
 package com.icm.taller3
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import org.json.JSONArray
@@ -27,8 +32,12 @@ class MapaUsuario : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mapa)
 
+        //Notificación
+        startService(Intent(this, ServiceUser::class.java))
+
         // Configuración de OpenStreetMap
         Configuration.getInstance().load(this, getPreferences(MODE_PRIVATE))
+
 
         // Configuración de la barra de herramientas
         val toolbar: Toolbar = findViewById(R.id.toolbarMenu)
@@ -68,6 +77,7 @@ class MapaUsuario : AppCompatActivity() {
             inputStream.read(buffer)
             inputStream.close()
             val json = String(buffer, charset("UTF-8"))
+
 
             // Parsear el JSON
             val jsonObject = JSONObject(json)
@@ -111,4 +121,49 @@ class MapaUsuario : AppCompatActivity() {
             mapController.setZoom(15.0)
         }
     }
+
+    //Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_usuario, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item1 -> {
+                val intent = Intent(this, inicioSesion::class.java)
+                startActivity(intent)
+            }
+            R.id.item2 -> {
+                showStatusDialog()
+            }
+            else -> {
+                val intent1 = Intent(this, UsuarioActivos::class.java)
+                startActivity(intent1)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun showStatusDialog() {
+        val statusOptions = arrayOf("Disponible", "Desconectado")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Selecciona tu estado")
+            .setItems(statusOptions, DialogInterface.OnClickListener { _, which ->
+                // 'which' indica la posición del elemento seleccionado en el array
+                when (which) {
+                    0 -> {
+                        // Opción: Disponible
+                        // Aquí puedes poner la lógica para cuando el usuario está disponible
+                    }
+                    1 -> {
+                        // Opción: Desconectado
+                        // Aquí puedes poner la lógica para cuando el usuario está desconectado
+                    }
+                }
+            })
+
+        builder.create().show()
+    }
+
 }

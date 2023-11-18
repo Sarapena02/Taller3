@@ -1,14 +1,14 @@
 package com.icm.taller3
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
-import com.google.firebase.ktx.Firebase
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.icm.taller3.databinding.ActivityInicioSesionBinding
 
 class inicioSesion : AppCompatActivity() {
@@ -32,6 +32,8 @@ class inicioSesion : AppCompatActivity() {
         iniciarSesion.setOnClickListener{
             iniciarSesion(binding.editTextText.text.toString(),binding.editTextTextPassword.text.toString())
         }
+        startService(Intent(this, ServiceUser::class.java))
+
 
         registrar.setOnClickListener{
             val registro = Intent(this,RegisterUser::class.java)
